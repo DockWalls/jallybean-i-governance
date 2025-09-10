@@ -1,15 +1,20 @@
-# IDE / tooling caches
-.cache/
-.cloudcode/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+*.tfvars.json
 
-# Node / Vite artifacts
+# Node / Vite
 node_modules/
 dist/
 .vite/
 
-# Environment files
-.env
-.env.*
-
-# OS files
+# IDE / OS
+.vscode/
+.idea/
 .DS_Store
+
+# Cloud Code cache
+.cache/
