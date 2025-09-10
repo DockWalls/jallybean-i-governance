@@ -1,20 +1,19 @@
-# Terraform
-.terraform/
+# Terraform working dirs (keep the lock file)
+**/.terraform/
 *.tfstate
 *.tfstate.*
 crash.log
 *.tfvars
-*.tfvars.json
 
-# Node / Vite
+# Tool caches
+**/.cache/
+
+# Node/build artifacts
 node_modules/
 dist/
-.vite/
+build/
 
-# IDE / OS
-.vscode/
-.idea/
+# OS/IDE
 .DS_Store
-
-# Cloud Code cache
-.cache/
+.idea/
+.vscode/
