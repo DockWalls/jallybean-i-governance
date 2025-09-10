@@ -1,0 +1,20 @@
+steps:
+  - id: terraform-init
+    name: gcr.io/ivory-mountain-470414-k1/terraform-compliance:1.0
+    dir: .
+    args: ['init', '-input=false']
+
+  - id: terraform-validate
+    name: gcr.io/ivory-mountain-470414-k1/terraform-compliance:1.0
+    dir: .
+    args: ['validate']
+
+  - id: terraform-plan
+    name: gcr.io/ivory-mountain-470414-k1/terraform-compliance:1.0
+    dir: .
+    args: ['plan', '-input=false', '-out=tfplan']
+
+  - id: terraform-apply
+    name: gcr.io/ivory-mountain-470414-k1/terraform-compliance:1.0
+    dir: .
+    args: ['apply', '-input=false', '-auto-approve', 'tfplan']

@@ -1,0 +1,15 @@
+# IDE / tooling caches
+.cache/
+.cloudcode/
+
+# Node / Vite artifacts
+node_modules/
+dist/
+.vite/
+
+# Environment files
+.env
+.env.*
+
+# OS files
+.DS_Store

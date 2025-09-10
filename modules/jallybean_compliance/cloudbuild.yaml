@@ -1,0 +1,38 @@
+steps:
+  - name: 'hashicorp/terraform:1.6.0'
+    entrypoint: 'terraform'
+    args: [
+      'init',
+      '-input=false',
+      '-no-color'
+    ]
+    dir: 'modules/jallybean_compliance'
+
+  - name: 'hashicorp/terraform:1.6.0'
+    entrypoint: 'terraform'
+    args: [
+      'plan',
+      '-input=false',
+      '-no-color',
+      '-out=tfplan',
+      '-var', 'project_id="ivory-mountain-470414-k1"',
+      '-var', 'region="us-central1"'
+    ]
+    dir: 'modules/jallybean_compliance'
+
+  - name: 'hashicorp/terraform:1.6.0'
+    entrypoint: 'terraform'
+    args: [
+      'apply',
+      '-input=false',
+      '-no-color',
+      '-auto-approve',
+      'tfplan'
+    ]
+    dir: 'modules/jallybean_compliance'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: E2_HIGHCPU_8
+
+timeout: 1200s

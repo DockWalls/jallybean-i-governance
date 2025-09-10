@@ -1,0 +1,15 @@
+---
+version: 1
+name: sample
+metadata:
+  owner: dockwalls2
+  environment: dev
+  created: "2025-09-10"
+pipeline:
+  steps:
+    - name: terraform-init
+      description: Initialize Terraform
+      enabled: true
+    - name: terraform-validate
+      description: Validate Terraform configuration
+      enabled: true
