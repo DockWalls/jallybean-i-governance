@@ -17,13 +17,15 @@ steps:
 
   - id: 'terraform-init'
     name: 'hashicorp/terraform:1.6.0'
-    entrypoint: 'sh'
-    args:
-      - -c
-      - |
-        terraform init -upgrade -input=false
-        terraform plan -out=tfplan
-        terraform show -json tfplan > tfplan.json
+    args: ['init', '-upgrade', '-input=false']
+
+  - id: 'terraform-plan'
+    name: 'hashicorp/terraform:1.6.0'
+    args: ['plan', '-out=tfplan']
+
+  - id: 'terraform-show'
+    name: 'hashicorp/terraform:1.6.0'
+    args: ['show', '-json', 'tfplan']
 
   - id: 'conftest-yaml'
     name: 'openpolicyagent/conftest:latest'
