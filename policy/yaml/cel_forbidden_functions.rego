@@ -1,30 +1,13 @@
-package yaml
+package policy.yaml.cel_forbidden_functions
 
-allowed_exceptions = {
-  "workflows/crisis_escalation.yaml": {"text("},
-  "workflows/incident_response.yaml": {"workflow.timestamp"},
-  "workflows/identity_bootstrap.yaml": {"sys.guid"}
-}
+default deny = []
 
-forbidden_functions = {"sys.guid", "text(", "workflow.timestamp"}
+# Define a set of forbidden function names
+forbidden_functions := {"getenv", "env", "printf", "now"}
 
+# Return a message if input.function is forbidden
 deny[msg] {
-  # Get the set of exceptions for the current file, or an empty set if none
-  exceptions := object.get(allowed_exceptions, input.path, set())
-
-  # Get the set of forbidden functions that are not in the exceptions
-  violation_functions := forbidden_functions - exceptions
-
-  # Iterate over the steps and args
-  val := input.content[_].spec.steps[_].args[_]
-
-  # Iterate over the violation functions
-  some f
-  fn := violation_functions[f]
-
-  # Check if the function is used
-  contains(val, fn)
-
-  # Create the error message
-  msg := sprintf("Forbidden CEL function '%s' used in %s", [fn, input.path])
+  func := input.function
+  forbidden_functions[func]
+  msg := sprintf("forbidden function used: %v", [func])
 }
