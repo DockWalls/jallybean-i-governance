@@ -2,7 +2,7 @@ package policy.yaml.cel_forbidden_functions
 
 forbidden_functions := {"getenv", "env", "printf", "now"}
 
-deny[msg] {
+deny contains msg if {
     some path, value
     walk(input, [path, value])
     is_string(value)
