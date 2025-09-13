@@ -8,7 +8,7 @@ allowed_exceptions := {
   "workflows/crisis_escalation.yaml": {"env", "now"},
 }
 
-deny[msg] {
+deny contains msg if {
   # Walk the entire input doc and look at string values
   some path, val
   walk(input, [path, val])
@@ -25,7 +25,7 @@ deny[msg] {
   msg := sprintf("Forbidden CEL function '%s' used at %v", [f, path])
 }
 
-exception(path, func) {
+exception(path, func) if {
   allowed := object.get(allowed_exceptions, path, set())
   func in allowed
 }
