@@ -8,7 +8,12 @@ substitutions:
 steps:
   - id: 'debug'
     name: 'ubuntu'
-    args: ['cat', 'cloudbuild.yaml']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "=== cloudbuild.yaml ==="
+        cat cloudbuild.yaml || echo "cloudbuild.yaml not found"
 
   - id: 'terraform-init'
     name: 'hashicorp/terraform:1.6.0'
