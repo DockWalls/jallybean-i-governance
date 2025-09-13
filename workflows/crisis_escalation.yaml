@@ -7,6 +7,7 @@ main:
         assign:
           - actor: "'${input.actor}'"
           - score: "'${input.score}'"
+          - esc_url: "'${sys.get_env('ESCALATION_WEBHOOK_URL')}'"
     - check_threshold:
         switch:
           - condition: "'${score > 0.85}'"
@@ -14,7 +15,7 @@ main:
               - escalate:
                   call: http.post
                   args:
-                    url: "'${sys.get_env(\"ESCALATION_WEBHOOK_URL\")}'"
+                    url: ${esc_url}
                     body:
                       trace_id: "'${input.trace_id}'"
                       timestamp: "'${sys.now()}'"
