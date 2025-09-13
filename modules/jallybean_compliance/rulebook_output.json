@@ -1,0 +1,7 @@
+{
+  "trace_id": "25230c34-7609-4ef6-8c15-d126f2e44ffa",
+  "timestamp": "2025-09-13T10:24:13Z",
+  "event": "rulebook_checks",
+  "decision": "passed",
+  "ledger_entry": "terraform_fmt, terraform_validate, yamllint, conftest"
+}

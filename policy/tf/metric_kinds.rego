@@ -1,15 +1,12 @@
 package metric_kinds
 
-default deny = []
+# Allowed metric kinds
+valid_kinds := {"GAUGE", "DELTA", "CUMULATIVE"}
 
-deny[msg] {
-  some i
-  rc := input.resource_changes[i]
-  after := rc.change.after
-  after.metricKind
-  not allowed(after.metricKind)
-  msg := sprintf("metricKind must be DELTA or CUMULATIVE for %s.%s (found %v)", [rc.type, rc.name, after.metricKind])
+deny contains msg if {
+  some r
+  input.resource_changes[r].change.after.metric.kind
+  kind := input.resource_changes[r].change.after.metric.kind
+  not valid_kinds[kind]
+  msg := sprintf("Invalid metric.kind '%s' in resource %s. Allowed kinds: %v", [kind, r, valid_kinds])
 }
-
-allowed(k) { k == "DELTA" }
-allowed(k) { k == "CUMULATIVE" }
