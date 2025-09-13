@@ -27,6 +27,14 @@ steps:
     name: 'hashicorp/terraform:1.6.0'
     args: ['show', '-json', 'tfplan']
 
+  - id: 'debug-workflows'
+    name: 'ubuntu'
+    args: ['ls', '-l', 'workflows']
+
+  - id: 'debug-workflow-content'
+    name: 'ubuntu'
+    args: ['cat', 'workflows/crisis_escalation.yaml']
+
   - id: 'conftest-yaml'
     name: 'openpolicyagent/conftest:latest'
     args: ['test', '--policy', 'policy', '--all-namespaces', 'workflows']
