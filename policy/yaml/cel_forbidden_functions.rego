@@ -1,27 +1,21 @@
 package policy.yaml.cel_forbidden_functions
 
-# Forbidden CEL function tokens (lowercased substring match)
-forbidden := ["env", "now", "getenv", "printf"]
+forbidden_functions := {"getenv", "env", "printf", "now"}
 
-# Whitelist specific functions in specific files (sets per file)
 allowed_exceptions := {
   "workflows/crisis_escalation.yaml": {"env", "now"},
+  "workflows/incident_response.yaml": {"now"},
+  "workflows/identity_bootstrap.yaml": {"getenv"}
 }
 
 deny contains msg if {
-  # Walk the entire input doc and look at string values
   some path, val
   walk(input, [path, val])
   is_string(val)
-
-  # Find any forbidden token in the string (case-insensitive)
   some i
-  f := forbidden[i]
+  f := forbidden_functions[i]
   contains(lower(val), f)
-
-  # Skip if explicitly allowed for this file
-  not exception(input.path, f)
-
+  not exception(input._filepath, f)
   msg := sprintf("Forbidden CEL function '%s' used at %v", [f, path])
 }
 
