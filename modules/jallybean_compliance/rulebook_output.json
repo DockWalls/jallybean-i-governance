@@ -5,3 +5,5 @@
   "decision": "passed",
   "ledger_entry": "terraform_fmt, terraform_validate, yamllint, conftest"
 }
+{"trace_id": "220f9eb3-10e9-45c0-b9d7-251f506c73ad", "timestamp": "2025-09-13T10:58:58Z", "event": "rulebook_checks", "decision": "passed", "ledger_entry": "terraform_fmt, terraform_validate, yamllint, conftest"}
+{"trace_id": "3557abf9-7fb1-4090-acc5-948f14ee45dd", "timestamp": "2025-09-13T11:07:49Z", "event": "rulebook_checks", "decision": "passed", "ledger_entry": "terraform_plan,conftest_yaml"}

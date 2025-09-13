@@ -1,5 +1,20 @@
+variable "project_id" {
+  type    = string
+  default = "ivory-mountain-470414-k1"
+}
+
 module "compliance" {
   source     = "./modules/jallybean_compliance"
-  project_id = "ivory-mountain-470414-k1"
+  project_id = var.project_id
   region     = "us-central1"
+}
+
+module "access_control" {
+  source     = "./modules/access_control"
+  project_id = var.project_id
+  principals = {
+    "roles/cloudbuild.builds.editor"     = ["group:build-admins@example.com"]
+    "roles/iam.serviceAccountUser"       = ["group:build-admins@example.com"]
+    "roles/secretmanager.secretAccessor" = ["group:secops@example.com"]
+  }
 }
